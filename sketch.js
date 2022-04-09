@@ -6,9 +6,8 @@ const Body = Matter.Body;
 const Constraint = Matter.Constraint;
 var engine,world,backgroundImg;
 var ground,canvas;
-var block,block1,block2,block3,block4;
-var boxAnimation=[];
-var boxSpritedata,boxSpritesheet;
+var block,block1,block2,block3;
+var blockSpritedata,blockSpritesheet;
 
 var isGameOver = false;
 
@@ -28,11 +27,6 @@ function setup() {
   ground = Bodies.rectangle(0, height - 1, width * 2, 1, { isStatic: true });
   World.add(world, ground);
 
-  var boxFrames = boxSpritedata.frames;
-  for (var i = 0; i < boxFrames.length; i++) {
-    var pos = boxFrames[i].position;
-    var img = boxSpritesheet.get(pos.x, pos.y, pos.w, pos.h);
-  }
   
 }
 
@@ -51,15 +45,17 @@ function draw()
   rect(0, 0, width * 2, 1);
   pop();
 
+  ground.visible=true;
+
   function showBox() {
     if (box.length > 0) {
       if (
-        box.length < 4 &&
-        box[ box.length - 1]. box.position.x < width - 300
+        block.length < 4 &&
+        block[ block.length - 1]. block.position.x < width - 300
       ) {
         var positions = [-40, -60, -70, -20];
         var position = random(positions);
-        var  box = new  box(
+        var  block = new  block(
           width,
           height - 100,
           170,
@@ -68,11 +64,20 @@ function draw()
         
         );
   
-        box.push( box);
+        block.push( block);
       }}
 
+      for (var i = 0; i < block.length; i++) {
+        Matter.Body.setVelocity(block[i].body, {
+          x: -0.9,
+          y: 0
+        });
+
+        block[i].display();
+
+        
  
 
 
   
-    }}
+      }}}
